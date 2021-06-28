@@ -22,15 +22,9 @@ class Database {
                 $data = $query->fetchAll();
             }
             return $data;
-            // header("content-type: Application/json");
-            // header("cache-control: public, max-age=1000");
-            // echo json_encode($data);
+
         } catch (\Throwable $th) {
-            $message = "Une erreur s'est produite lors de la récupération des informations";
-            // header("content-type: Application/json");
-            // header("cache-control: public, max-age=1000");
-            // echo json_encode($message);
-            return $message;
+            return "Une erreur s'est produite lors de la récupération des informations";
         }
     }
 
@@ -40,15 +34,9 @@ class Database {
             $prepare = $this->pdo->prepare($statement);
             $prepare->execute($data);
             return "Article bien enregistré/modifié";
-            // header("content-type: Application/json");
-            // header("cache-control: public, max-age=1000");
-            // echo json_encode($data);
+
         } catch (\Exception $e) {
-            $message = "Une erreur s'est produite lors de la récupération des informations";
-            // header("content-type: Application/json");
-            // header("cache-control: public, max-age=1000");
-            // echo json_encode($message);
-            return $message;
+            return "Une erreur s'est produite lors de la récupération des informations";
         }
     }
 }

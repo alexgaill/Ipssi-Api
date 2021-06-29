@@ -43,9 +43,9 @@ class CategorieModel {
         return $this->db->prepare($statement, $data);
     }
 
-    public function update(array $data)
+    public function update(int $id, array $data)
     {
-        $statement = "UPDATE categorie SET name = :name";
+        $statement = "UPDATE categorie SET name = :name WHERE id = $id";
         
         return $this->db->prepare($statement, $data);
     }

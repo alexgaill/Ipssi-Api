@@ -31,9 +31,9 @@ class CategorieController extends DefaultController{
         }
     }
 
-    public function update ($data) 
+    public function update (int $id, array $data) 
     {
-        $this->jsonResponse($this->model->update($data));
+        $this->jsonResponse($this->model->update($id, $data));
 
     }
 

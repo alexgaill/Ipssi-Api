@@ -23,8 +23,12 @@ class CategorieController extends DefaultController{
 
     public function create ($data) 
     {
-        $this->jsonResponse($this->model->create($data));
-
+        $save = $this->model->create($data);
+        if ($save === true) {
+            $this->saveJsonResponse("Categorie bien enregistrée");
+        } else {
+            $this->BadRequestJsonResponse($save);
+        }
     }
 
     public function update ($data) 

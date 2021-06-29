@@ -33,10 +33,10 @@ class Database {
         try {
             $prepare = $this->pdo->prepare($statement);
             $prepare->execute($data);
-            return "Article bien enregistré/modifié";
+            return true;
 
         } catch (\Exception $e) {
-            return "Une erreur s'est produite lors de la récupération des informations";
+            return $e->getMessage();
         }
     }
 }

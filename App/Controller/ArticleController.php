@@ -16,14 +16,19 @@ class ArticleController extends DefaultController{
         $this->jsonResponse($this->model->findAll());
     }
 
-    public function single ($id)
+    public function single (int $id)
     {
-        $this->jsonResponse($this->model->find($id));
+            $this->jsonResponse($this->model->find($id));
     }
 
     public function create ($data) 
     {
-        $this->jsonResponse($this->model->create($data));
+        $save = $this->model->create($data);
+        if ($save === true) {
+            $this->saveJsonResponse("Article bien enregistré");
+        } else {
+            $this->BadRequestJsonResponse($save);
+        }
 
     }
 

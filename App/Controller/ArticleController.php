@@ -13,7 +13,17 @@ class ArticleController extends DefaultController{
 
     public function list ()
     {
-        $this->jsonResponse($this->model->findAll());
+        $data = array();
+        foreach ($this->model->findAll() as $value) {
+            $value->links = [
+                "categorie" => SERVER . "categorie/". $value->categorie_id,
+                "user" => SERVER . "user/". $value->user_id,
+                "update" => SERVER . "article/". $value->id ."/update",
+                "delete" => SERVER . "article/". $value->id ."/delete"
+            ];
+            $data[] = $value;
+        }
+        $this->jsonResponse($data);
     }
 
     public function single (int $id)

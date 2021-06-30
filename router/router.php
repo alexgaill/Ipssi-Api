@@ -9,6 +9,7 @@ $controller = "App\Controller\\".$entity."Controller";
 $cont = new $controller();
 
 $rMethod = $_SERVER["REQUEST_METHOD"];
+
 if ($rMethod === "GET") {
     if (isset($uri[2]) && preg_match("[\d]", $uri[2]) && !isset($uri[3])) {
         $cont->single($uri[2]);
@@ -21,7 +22,7 @@ if ($rMethod === "GET") {
     if (isset($uri[2]) && $uri[2] === "create") {
         $cont->create($_POST);
     } else {
-        $cont->badRequestJsonResponse("Page not found please try ".SERVER.$uri[1]."/create with method POST.");
+        $cont->notAllowedResponse("Page not found please try ".SERVER.$uri[1]."/create with method POST.");
         
     }
 } elseif ($rMethod === "PUT" || $rMethod === "PATCH") {
@@ -31,7 +32,7 @@ if ($rMethod === "GET") {
             parse_str(file_get_contents("php://input"), $_PUT);
             $cont->update($uri[2], $_PUT);
         } else {
-            $cont->badRequestJsonResponse("Page not found please try ".SERVER.$uri[1]."/{id}/update with method PUT.");
+            $cont->notAllowedResponse("Page not found please try ".SERVER.$uri[1]."/{id}/update with method PUT.");
         }
     } else {
         $cont->badRequestJsonResponse("$entity not found please try with another id.");
@@ -41,7 +42,7 @@ if ($rMethod === "GET") {
         if (isset($uri[3]) && $uri[3] === "delete") {
             $cont->delete($uri[2]);
         } else {
-            $cont->badRequestJsonResponse("Page not found please try ".SERVER .$uri[1]."/{id}/delete with method DELETE.");
+            $cont->notAllowedResponse("Page not found please try ".SERVER .$uri[1]."/{id}/delete with method DELETE.");
         }
     } else {
         $cont->badRequestJsonResponse("$entity not found please try with another id.");

@@ -33,13 +33,37 @@ class DefaultController {
         echo json_encode($response);
     }
 
-    public function BadRequestJsonResponse($message = "Page not found")
+    public function badRequestJsonResponse($message = "Page not found")
     {
         header("content-type: Application/json");
         header("cache-control: public, max-age=1000");
         header('HTTP/1.0 404');
         $response = [
             "statusCode" => 404,
+            "message" => $message
+        ];
+        echo json_encode($response);
+    }
+
+    public function notAllowedResponse($message = "Méthode not allowed")
+    {
+        header("content-type: Application/json");
+        header("cache-control: public, max-age=1000");
+        header('HTTP/1.0 405');
+        $response = [
+            "statusCode" => 405,
+            "message" => $message
+        ];
+        echo json_encode($response);
+    }
+    
+    public function internalErrorResponse ($message = "Internal server error")
+    {
+        header("content-type: Application/json");
+        header("cache-control: public, max-age=1000");
+        header('HTTP/1.0 500');
+        $response = [
+            "statusCode" => 500,
             "message" => $message
         ];
         echo json_encode($response);

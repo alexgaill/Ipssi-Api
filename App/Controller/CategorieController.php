@@ -13,32 +13,54 @@ class CategorieController extends DefaultController{
 
     public function list ()
     {
-        $this->jsonResponse($this->model->findAll());
+        $data = array();
+        foreach ($this->model->findAll() as $value) {
+            $value->links = [
+                "update" => SERVER . "categorie/". $value->id ."/update",
+                "delete" => SERVER . "categorie/". $value->id ."/delete"
+            ];
+            $data[] = $value;
+        }
+        $this->jsonResponse($data);
     }
 
     public function single ($id)
     {
-        $this->jsonResponse($this->model->find($id));
+        $data = $this->model->find($id);
+        $data->links = [
+            "update" => SERVER . "categorie/". $data->id ."/update",
+            "delete" => SERVER . "categorie/". $data->id ."/delete"
+        ];
+        $this->jsonResponse($data);
     }
 
     public function create ($data) 
     {
         $save = $this->model->create($data);
         if ($save === true) {
-            $this->saveJsonResponse("Categorie bien enregistrée");
+            $this->saveJsonResponse("Catégorie bien enregistré");
         } else {
-            $this->BadRequestJsonResponse($save);
+            $this->internalErrorResponse("La catégorie n'a pas pu être enregistrée. Veuillez réessayer");
         }
     }
 
     public function update (int $id, array $data) 
     {
-        $this->jsonResponse($this->model->update($id, $data));
-
+        $update = $this->model->update($data);
+        if ($update === true) {
+            $this->saveJsonResponse("Catégorie bien mis à jour");
+        } else {
+            $this->internalErrorResponse("La catégorie n'a pas pu être mise à jour. Veuillez réessayer");
+        }
     }
 
     public function delete (string $id)
     {
-        $this->jsonResponse($this->model->delete($id));
+        $delete = $this->model->delete($id);
+        if ($delete === true) {
+            $this->saveJsonResponse("Catégorie bien été supprimé");
+        } else {
+            $this->internalErrorResponse("La catégorie n'a pas pu être supprimée. Veuillez réessayer");
+        }
     }
 }

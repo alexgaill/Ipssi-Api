@@ -43,13 +43,14 @@ class ArticleModel {
         return $this->db->prepare($statement, $data);
     }
 
-    public function update(array $data)
+    public function update(int $id, array $data)
     {
         $statement = "UPDATE article SET
                         title = :title,
                         content = :content,
                         categorie_id = :categorie_id,
                         user_id = :user_id
+                        WHERE id = $id
                         ";
         
         return $this->db->prepare($statement, $data);

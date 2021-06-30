@@ -7,6 +7,7 @@ class DefaultController {
     {
         header("content-type: Application/json");
         header("cache-control: public, max-age=1000");
+        header("Access-Control-Allow-Origin: *");
         header('HTTP/1.0 200');
         $response = [
             "statusCode" => 200,
@@ -68,9 +69,25 @@ class DefaultController {
     {
         header("content-type: Application/json");
         header("cache-control: no-cache");
+        header("Access-Control-Allow-Origin: *");
         header('HTTP/1.0 500');
         $response = [
             "statusCode" => 500,
+            "message" => $message
+        ];
+        echo json_encode($response);
+    }
+
+    public function optionResponse($message) 
+    {
+        header("content-type: Application/json");
+        header("cache-control: public, max-age=1000");
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: *");
+        header("Access-Control-Allow-Headers: *");
+        header('HTTP/1.0 200');
+        $response = [
+            "statusCode" => 200,
             "message" => $message
         ];
         echo json_encode($response);

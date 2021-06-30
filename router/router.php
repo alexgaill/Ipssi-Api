@@ -10,6 +10,10 @@ $cont = new $controller();
 
 $rMethod = $_SERVER["REQUEST_METHOD"];
 
+if($rMethod === "OPTIONS") {
+    $cont->optionResponse("ok");
+}
+
 if ($rMethod === "GET") {
     if (isset($uri[2]) && preg_match("[\d]", $uri[2]) && !isset($uri[3])) {
         $cont->single($uri[2]);

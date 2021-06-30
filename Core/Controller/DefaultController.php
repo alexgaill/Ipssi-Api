@@ -19,7 +19,7 @@ class DefaultController {
     public function saveJsonResponse($message = "Enregistrement ok")
     {
         header("content-type: Application/json");
-        header("no-cache");
+        header("cache-control: no-cache");
         header('HTTP/1.0 201');
         $response = [
             "statusCode" => 201,
@@ -31,7 +31,7 @@ class DefaultController {
     public function unauthorizedResponse($message = "Unauthorized")
     {
         header("content-type: Application/json");
-        header("no-cache");
+        header("cache-control: no-cache");
         header('HTTP/1.0 401');
         $response = [
             "statusCode" => 401,
@@ -43,7 +43,7 @@ class DefaultController {
     public function badRequestJsonResponse($message = "Page not found")
     {
         header("content-type: Application/json");
-        header("no-cache");
+        header("cache-control: no-cache");
         header('HTTP/1.0 404');
         $response = [
             "statusCode" => 404,
@@ -55,7 +55,7 @@ class DefaultController {
     public function notAllowedResponse($message = "Méthode not allowed")
     {
         header("content-type: Application/json");
-        header("no-cache");
+        header("cache-control: no-cache");
         header('HTTP/1.0 405');
         $response = [
             "statusCode" => 405,
@@ -67,7 +67,7 @@ class DefaultController {
     public function internalErrorResponse ($message = "Internal server error")
     {
         header("content-type: Application/json");
-        header("no-cache");
+        header("cache-control: no-cache");
         header('HTTP/1.0 500');
         $response = [
             "statusCode" => 500,

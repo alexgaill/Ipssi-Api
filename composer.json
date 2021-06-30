@@ -4,5 +4,8 @@
             "App\\" : "App",
             "Core\\" : "Core"
         }
+    },
+    "require": {
+        "firebase/php-jwt": "^5.4"
     }
 }

@@ -21,7 +21,10 @@ if ($rMethod === "GET") {
 } elseif ($rMethod === "POST") {
     if (isset($uri[2]) && $uri[2] === "create") {
         $cont->create($_POST);
-    } else {
+    } elseif (isset($uri[2]) && $uri[1] === "user" && $uri[2] === "login") {
+        $cont->login($_POST);
+    }
+    else {
         $cont->notAllowedResponse("Page not found please try ".SERVER.$uri[1]."/create with method POST.");
         
     }

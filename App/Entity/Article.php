@@ -1,18 +1,65 @@
 <?php
 namespace App\Entity;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema(title="Article")
+ */
 class Article {
 
+    /**
+     * @OA\Property(
+     *      type="integer",
+     *      nullable=false,
+     * )
+     * @var int
+     */
     public $id;
     
+    /**
+     * @OA\Property(
+     *      type="string",
+     *      nullable=false
+     * )
+     * @var string
+     */
     public $title;
     
+    /**
+     * @OA\Property(
+     *      type="string",
+     *      nullable=false
+     * )
+     * @var string
+     */
     public $content;
 
+    /**
+     * @OA\Property(
+     *      type="integer",
+     *      nullable=false
+     * )
+     * @var int
+     */
     public $categorie_id;
 
+    /**
+     * @OA\Property(
+     *      type="integer",
+     *      nullable=false
+     * )
+     * @var int
+     */
     public $user_id;
 
+    /**
+     * @OA\Property(
+     *      type="string",
+     *      nullable=true
+     * )
+     * @var string
+     */
     public $picture;
 
     /**

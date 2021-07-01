@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Model\ArticleModel;
 use Core\Controller\DefaultController;
+use OpenApi\Annotations as OA;
 
 class ArticleController extends DefaultController{
     
@@ -12,7 +13,55 @@ class ArticleController extends DefaultController{
     }
 
     /**
-     * List all the articles
+     * List all articles
+     * @OA\Get(
+     *      path="/article",
+     *      summary="List all articles",
+     *      @OA\Parameter(
+     *          name="limit",
+     *          in="query",
+     *          description="limit permettant la pagination",
+     *          required=false,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *          name="apikey",
+     *          in="query",
+     *          description="apikey permettant de valider l'application",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response = "200",
+     *          description="List all articles",
+     *          @OA\JsonContent(
+     *              type="array",
+     *              description="Article[]",
+     *              @OA\Items(
+     *                  ref="#/components/schemas/Article"
+     *              ),
+     *          ),
+     *          @OA\XmlContent(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="apiKey missing",
+     *          @OA\JsonContent(
+     *              type="string",
+     *              description="apikey manquante"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="500",
+     *          description="internal server error",
+     *          @OA\JsonContent(
+     *              type="string",
+     *              description="apikey manquante"
+     *          )
+     *      )
+     * )
      *
      * @return void
      */
@@ -33,6 +82,45 @@ class ArticleController extends DefaultController{
 
     /**
      * return an article
+     * @OA\Get(
+     *      path="/article/{id}",
+     *      summary="return an article",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id de l'article à récupérer",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *          name="apikey",
+     *          in="query",
+     *          description="apikey permettant de valider l'application",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response ="200",
+     *          description="return an article",
+     *          @OA\JsonContent(ref="#/components/schemas/Article")
+     *      ),
+     *      @OA\Response(
+     *          response="401",
+     *          description="apiKey missing",
+     *          @OA\JsonContent(
+     *              type="string",
+     *              description="apikey manquante"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response="500",
+     *          description="internal server error",
+     *          @OA\JsonContent(
+     *              type="string",
+     *              description="apikey manquante"
+     *          )
+     *      )
+     * )
      *
      * @param integer $id
      * @return void
@@ -51,6 +139,56 @@ class ArticleController extends DefaultController{
 
     /**
      * Save article in DB
+     * 
+     * @OA\Post(
+     *      path="/article/create",
+     *      summary="Create article",
+     *      @OA\Parameter(
+     *          name="apikey",
+     *          in="query",
+     *          description="apikey permettant de valider l'application",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Article enregistré",
+     *          @OA\JsonContent(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          description="Article à enregistrer",
+     *          required=true,
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="title",
+     *                  type="string",
+     *                  example="Nouvel article"
+     *              ),
+     *              @OA\Property(
+     *                  property="content",
+     *                  type="string",
+     *                  example="Lorem ipsum dolor sit amet"
+     *              ),
+     *              @OA\Property(
+     *                  property="categorie_id",
+     *                  type="integer",
+     *                  example=1
+     *              ),
+     *              @OA\Property(
+     *                  property="user_id",
+     *                  type="integer",
+     *                  example=1
+     *              ),
+     *              @OA\Property(
+     *                  property="picture",
+     *                  type="integer",
+     *                  example=null
+     *              ),
+     *          )
+     *      )
+     * )
      *
      * @param array $data
      * @return void
@@ -67,6 +205,64 @@ class ArticleController extends DefaultController{
 
     /**
      * Update article in Db
+     * 
+     * @OA\Put(
+     *      path="/article/{id}/update",
+     *      summary="Update article",
+     *      @OA\Parameter(
+     *          name="apikey",
+     *          in="query",
+     *          description="apikey permettant de valider l'application",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id de l'article à mettre à jour",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Article enregistré",
+     *          @OA\JsonContent(
+     *              type="string"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          description="Nouvelles données de l'article",
+     *          required=true,
+     *          request="Update article",
+     *          @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="title",
+     *                  type="string",
+     *                  example="Nouvel article"
+     *              ),
+     *              @OA\Property(
+     *                  property="content",
+     *                  type="string",
+     *                  example="Lorem ipsum dolor sit amet"
+     *              ),
+     *              @OA\Property(
+     *                  property="categorie_id",
+     *                  type="integer",
+     *                  example=1
+     *              ),
+     *              @OA\Property(
+     *                  property="user_id",
+     *                  type="integer",
+     *                  example=1
+     *              ),
+     *              @OA\Property(
+     *                  property="picture",
+     *                  type="integer",
+     *                  example=null
+     *              ),
+     *          )
+     *      )
+     * )
      *
      * @param array $data
      * @param int $id
@@ -85,6 +281,32 @@ class ArticleController extends DefaultController{
 
     /**
      * Delete article in Db
+     * @OA\Delete(
+     *      path="/article/{id}/delete",
+     *      summary="Delete article",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="id de l'article à supprimer",
+     *          required=true,
+     *          @OA\Schema(type="integer")
+     *      ),
+     *      @OA\Parameter(
+     *          name="apikey",
+     *          in="query",
+     *          description="apikey permettant de valider l'application",
+     *          required=true,
+     *          @OA\Schema(type="string")
+     *      ),
+     *      @OA\Response(
+     *          response="200",
+     *          description="Suppression validée",
+     *          @OA\JsonContent(
+     *              type="string",
+     *              example="Article supprimé"
+     *          )
+     *      )
+     * )
      *
      * @param string $id
      * @return void

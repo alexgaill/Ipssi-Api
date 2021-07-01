@@ -1,0 +1,355 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api de blog du cous Api",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "sandbox-server"
+        }
+    ],
+    "paths": {
+        "/article": {
+            "get": {
+                "summary": "List all articles",
+                "description": "List all articles",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "limit permettant la pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "apikey",
+                        "in": "query",
+                        "description": "apikey permettant de valider l'application",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List all articles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Article[]",
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Article"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "apiKey missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "apikey manquante",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "apikey manquante",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/article/{id}": {
+            "get": {
+                "summary": "return an article",
+                "description": "return an article",
+                "operationId": "c44fbddadb7a2f8f3a650b9fb5cd8458",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id de l'article à récupérer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "apikey",
+                        "in": "query",
+                        "description": "apikey permettant de valider l'application",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "return an article",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Article"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "apiKey missing",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "apikey manquante",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "apikey manquante",
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/article/create": {
+            "post": {
+                "summary": "Create article",
+                "description": "Save article in DB",
+                "operationId": "0e9cd164679e26f207036fbda9d99958",
+                "parameters": [
+                    {
+                        "name": "apikey",
+                        "in": "query",
+                        "description": "apikey permettant de valider l'application",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Article à enregistrer",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Nouvel article"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Lorem ipsum dolor sit amet"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "picture": {
+                                        "type": "integer",
+                                        "example": null
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Article enregistré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/article/{id}/update": {
+            "put": {
+                "summary": "Update article",
+                "description": "Update article in Db",
+                "operationId": "3873fb25b9af7f46aac6a4ce64312b00",
+                "parameters": [
+                    {
+                        "name": "apikey",
+                        "in": "query",
+                        "description": "apikey permettant de valider l'application",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id de l'article à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "request": "Update article",
+                    "description": "Nouvelles données de l'article",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Nouvel article"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Lorem ipsum dolor sit amet"
+                                    },
+                                    "categorie_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "user_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "picture": {
+                                        "type": "integer",
+                                        "example": null
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Article enregistré",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/article/{id}/delete": {
+            "delete": {
+                "summary": "Delete article",
+                "description": "Delete article in Db",
+                "operationId": "c373b05353cc1ff5f92dd8959fe9ad3a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id de l'article à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "apikey",
+                        "in": "query",
+                        "description": "apikey permettant de valider l'application",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Suppression validée",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "string"
+                                },
+                                "example": "Article supprimé"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Article": {
+                "title": "Article",
+                "properties": {
+                    "id": {
+                        "nullable": false,
+                        "type": "integer"
+                    },
+                    "title": {
+                        "nullable": false,
+                        "type": "string"
+                    },
+                    "content": {
+                        "nullable": false,
+                        "type": "string"
+                    },
+                    "categorie_id": {
+                        "nullable": false,
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "nullable": false,
+                        "type": "integer"
+                    },
+                    "picture": {
+                        "nullable": true,
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}

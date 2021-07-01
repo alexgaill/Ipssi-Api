@@ -6,7 +6,7 @@ class DefaultController {
     public function jsonResponse ($data, $message = "Récupération ok")
     {
         header("content-type: Application/json");
-        header("cache-control: public, max-age=1000");
+        header("cache-control: public, max-age=86400");
         header("Access-Control-Allow-Origin: *");
         header('HTTP/1.0 200');
         $response = [
@@ -85,12 +85,12 @@ class DefaultController {
     public function optionResponse($message) 
     {
         header("content-type: Application/json");
-        header("cache-control: public, max-age=1000");
+        header("cache-control: public, max-age=86400");
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: *");
         header("Access-Control-Allow-Headers: *");
         header("Access-Control-Allow-Credentials: true");
-        header('HTTP/1.0 200');
+        header('HTTP/1.1 200');
         $response = [
             "statusCode" => 200,
             "message" => $message

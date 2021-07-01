@@ -23,6 +23,7 @@ if ($rMethod === "GET") {
         $cont->badRequestJsonResponse();
     }
 } elseif ($rMethod === "POST") {
+    // var_dump($role);
     if (isset($uri[2]) && $uri[2] === "create" && in_array("author", $role)) {
         $cont->create($_POST);
     } elseif (isset($uri[2]) && $uri[1] === "user" && $uri[2] === "login") {

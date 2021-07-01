@@ -110,7 +110,6 @@ class UserController extends DefaultController{
     public function login (array $currentUser)
     {
         $user = $this->model->getUserByEmail($currentUser["email"]);
-        var_dump(password_verify($currentUser["password"], $user->getPassword()));
         if (password_verify($currentUser["password"], $user->getPassword())) {
             $date = new \DateTime();
             $date->add(new \DateInterval('P1D'));
@@ -125,6 +124,8 @@ class UserController extends DefaultController{
             ];
             $jwt = JWT::encode($payload, $key);
             $this->jsonResponse($jwt);
+        } else {
+            $this->unauthorizedResponse("Erreur identifiants");
         }
     }
 }

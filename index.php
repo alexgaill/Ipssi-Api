@@ -8,6 +8,7 @@ require "vendor/autoload.php";
 // if (isset($_COOKIE["apikey"]) && $_COOKIE["apikey"] === "845c4f3dd5ec02c3ff0caf3a1a255f9b") {
 if (isset($_GET["apikey"]) && $_GET["apikey"] === "845c4f3dd5ec02c3ff0caf3a1a255f9b") {
     $role = array("ROLE_USER");
+    // var_dump($_COOKIE);
     if (isset($_COOKIE["jwToken"])) {
         $jwt = $_COOKIE["jwToken"];
         $decoded = JWT::decode($jwt, "toto", array('HS256'));

@@ -21,6 +21,7 @@ class DefaultController {
     {
         header("content-type: Application/json");
         header("cache-control: no-cache");
+        header("Access-Control-Allow-Origin: *");
         header('HTTP/1.0 201');
         $response = [
             "statusCode" => 201,
@@ -33,6 +34,7 @@ class DefaultController {
     {
         header("content-type: Application/json");
         header("cache-control: no-cache");
+        header("Access-Control-Allow-Origin: *");
         header('HTTP/1.0 401');
         $response = [
             "statusCode" => 401,
@@ -45,6 +47,7 @@ class DefaultController {
     {
         header("content-type: Application/json");
         header("cache-control: no-cache");
+        header("Access-Control-Allow-Origin: *");
         header('HTTP/1.0 404');
         $response = [
             "statusCode" => 404,
@@ -53,10 +56,11 @@ class DefaultController {
         echo json_encode($response);
     }
 
-    public function notAllowedResponse($message = "Méthode not allowed")
+    public function notAllowedResponse($message = "Method not allowed")
     {
         header("content-type: Application/json");
         header("cache-control: no-cache");
+        header("Access-Control-Allow-Origin: *");
         header('HTTP/1.0 405');
         $response = [
             "statusCode" => 405,
@@ -85,6 +89,7 @@ class DefaultController {
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Methods: *");
         header("Access-Control-Allow-Headers: *");
+        header("Access-Control-Allow-Credentials: true");
         header('HTTP/1.0 200');
         $response = [
             "statusCode" => 200,
